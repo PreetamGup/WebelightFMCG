@@ -77,4 +77,26 @@ const registerController:RequestHandler=async(req:Request, res:Response)=>{
       }
 }
 
-module.exports = {registerController, loginController}
+
+const getAllUser= async(req:Request, res:Response)=>{
+  try {
+    const allUser = await User.find({})
+
+    return res.status(200).json({
+      message:"All User fetched succefully",
+      success:true,
+      allUser, 
+    })
+
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `Fetching all User failed ${error}`,
+    })
+    
+  }
+
+}
+
+module.exports = {registerController, loginController, getAllUser}

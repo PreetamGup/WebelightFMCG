@@ -76,4 +76,20 @@ const registerController = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
 });
-module.exports = { registerController, loginController };
+const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allUser = yield userModel_1.default.find({});
+        return res.status(200).json({
+            message: "All User fetched succefully",
+            success: true,
+            allUser,
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `Fetching all User failed ${error}`,
+        });
+    }
+});
+module.exports = { registerController, loginController, getAllUser };
