@@ -3,7 +3,18 @@ import { Response, Request } from "express"
 
 const getAllProduct= async(req:Request, res:Response)=>{
   try {
-    const allProduct = await Product.find({})
+    
+    const { maxprice=500000, minprice=0, category } = req.query;
+
+    const pageNumber = Number(req.query.page) || 1;
+
+    const limit = Number(req.query.limit) || 10;
+    const skip = (pageNumber - 1) * limit;
+  
+    console.log(req.query)
+
+    let allProduct = await Product.find(category?{category, price: {$gt: minprice, $lt: maxprice}}:{price: {$gt: minprice, $lt: maxprice}})
+                    .skip(skip).limit(limit)
 
     return res.status(200).json({
       message:"All product fetched succefully",
@@ -64,7 +75,7 @@ const addNewProduct = async (req:Request, res:Response)=>{
     await newProduct.save();
 
    return res.status(201).json({
-      message: "New Producg Added Successfully",
+      message: "New Product Added Successfully",
       success: true,
     })
 

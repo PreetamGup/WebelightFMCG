@@ -15,7 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const productModel_1 = __importDefault(require("../models/productModel"));
 const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allProduct = yield productModel_1.default.find({});
+        const { maxprice = 500000, minprice = 0, category } = req.query;
+        const pageNumber = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+        const skip = (pageNumber - 1) * limit;
+        console.log(req.query);
+        let allProduct = yield productModel_1.default.find(category ? { category, price: { $gt: minprice, $lt: maxprice } } : { price: { $gt: minprice, $lt: maxprice } })
+            .skip(skip).limit(limit);
         return res.status(200).json({
             message: "All product fetched succefully",
             success: true,
@@ -58,7 +64,7 @@ const addNewProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const newProduct = new productModel_1.default(req.body);
         yield newProduct.save();
         return res.status(201).json({
-            message: "New Producg Added Successfully",
+            message: "New Product Added Successfully",
             success: true,
         });
     }
