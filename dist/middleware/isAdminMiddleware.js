@@ -17,6 +17,7 @@ const isAdminMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     try {
         const id = req.body.user.id;
         const user = yield userModel_1.default.findById(id);
+        console.log(user);
         if (user === null || user === void 0 ? void 0 : user.isAdmin) {
             next();
         }

@@ -25,7 +25,7 @@ const loginController:RequestHandler = async (req:Request, res:Response) => {
         });
       }
       const token = jwt.sign({ id: user._id }, JWT_SECRET, {
-        expiresIn: "1d",
+        expiresIn: "30d",
       });
       res.status(200).send({
         message: "Login Success",

@@ -13,15 +13,25 @@ const getAllProduct= async(req:Request, res:Response)=>{
   
     console.log(req.query)
 
-    let allProduct = await Product.find(category?{category, price: {$gt: minprice, $lt: maxprice}}:{price: {$gt: minprice, $lt: maxprice}})
+    if(req.query.page){
+      let allProduct = await Product.find(category?{category, price: {$gt: minprice, $lt: maxprice}}:{price: {$gt: minprice, $lt: maxprice}})
                     .skip(skip).limit(limit)
 
-    return res.status(200).json({
-      message:"All product fetched succefully",
-      success:true,
-      allProduct, 
-    })
+      return res.status(200).json({
+        message:"All product fetched succefully",
+        success:true,
+        allProduct, 
+      })
 
+    }else{
+      let allProduct = await Product.find(category?{category, price: {$gt: minprice, $lt: maxprice}}:{price: {$gt: minprice, $lt: maxprice}})
+
+      return res.status(200).json({
+        message:"All product fetched succefully",
+        success:true,
+        allProduct, 
+      })
+    }
 
   } catch (error) {
     return res.status(500).json({

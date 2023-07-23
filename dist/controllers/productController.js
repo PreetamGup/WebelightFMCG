@@ -20,13 +20,23 @@ const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const limit = Number(req.query.limit) || 10;
         const skip = (pageNumber - 1) * limit;
         console.log(req.query);
-        let allProduct = yield productModel_1.default.find(category ? { category, price: { $gt: minprice, $lt: maxprice } } : { price: { $gt: minprice, $lt: maxprice } })
-            .skip(skip).limit(limit);
-        return res.status(200).json({
-            message: "All product fetched succefully",
-            success: true,
-            allProduct,
-        });
+        if (req.query.page) {
+            let allProduct = yield productModel_1.default.find(category ? { category, price: { $gt: minprice, $lt: maxprice } } : { price: { $gt: minprice, $lt: maxprice } })
+                .skip(skip).limit(limit);
+            return res.status(200).json({
+                message: "All product fetched succefully",
+                success: true,
+                allProduct,
+            });
+        }
+        else {
+            let allProduct = yield productModel_1.default.find(category ? { category, price: { $gt: minprice, $lt: maxprice } } : { price: { $gt: minprice, $lt: maxprice } });
+            return res.status(200).json({
+                message: "All product fetched succefully",
+                success: true,
+                allProduct,
+            });
+        }
     }
     catch (error) {
         return res.status(500).json({

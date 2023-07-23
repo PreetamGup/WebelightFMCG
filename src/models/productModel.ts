@@ -16,11 +16,6 @@ export interface ProductModel{
         required:true,
     };
 
-    brand: {
-        type:String,
-        required:true,
-    },
-
     category: {
         type:String,
         required:true,

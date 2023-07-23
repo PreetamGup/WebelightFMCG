@@ -33,7 +33,7 @@ const loginController = (req, res) => __awaiter(void 0, void 0, void 0, function
             });
         }
         const token = jwt.sign({ id: user._id }, JWT_SECRET, {
-            expiresIn: "1d",
+            expiresIn: "30d",
         });
         res.status(200).send({
             message: "Login Success",

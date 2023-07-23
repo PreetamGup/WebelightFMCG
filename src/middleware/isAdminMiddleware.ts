@@ -6,6 +6,7 @@ const isAdminMiddleware= async(req:Request,res:Response,next:NextFunction)=>{
    try {
     const id= req.body.user.id
     const user = await User.findById(id)
+    console.log(user)
 
     if(user?.isAdmin){
         next(); 
