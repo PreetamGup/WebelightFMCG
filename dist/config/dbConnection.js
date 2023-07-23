@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const mongoose_1 = __importDefault(require("mongoose"));
+const connectionURL = process.env.MONGO_DB_URL || "mongodb://127.0.0.1:27017/Webelight";
 function connectDb() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect("mongodb://127.0.0.1:27017/Webelight");
+            yield mongoose_1.default.connect(connectionURL);
             console.log("Database Connected");
         }
         catch (error) {

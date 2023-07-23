@@ -20,6 +20,7 @@ app.use("/users", userRoutes_1.default);
 app.use("/products", productRoutes_1.default);
 const swaggerOptions = require('../src/swagger.json');
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerOptions));
-app.listen(3000, () => {
+const Port = process.env.PORT || 3000;
+app.listen(Port, () => {
     console.log("sever running.....");
 });
